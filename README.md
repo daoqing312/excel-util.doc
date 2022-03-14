@@ -131,134 +131,132 @@ public class ExcelRequest extends BizPageRequest {
 
 1. 写入excel
 
+    ```java
+        /**
+        * 写入excel
+        * @param outputStream 输出流
+        * @param excelRequest 自定义配置对象
+        * @param clazz 表头类
+        * @param datalist 表格数据
+        */
+        public static void writeExcel(OutputStream outputStream, ExcelRequest excelRequest, Class<?> clazz, List<?> datalist) {
+            ...
+        }
+
+    ```
+
+2. 写入excel
+
+    ```java
+        /**
+        * 写入excel
+        * @param outputStream 输出流
+        * @param excelRequest 自定义配置对象
+        * @param head 自定义表头
+        * @param datalist 表格数据
+        */
+    public static void writeExcel(OutputStream outputStream, ExcelRequest excelRequest,List<List<String>> head, List<?> datalist) {
+        ...
+    } 
+    ```
+
+3. 写入excel
+
    ```java
-       /**
-       * 写入excel
-       * @param outputStream 输出流
-       * @param excelRequest 自定义配置对象
-       * @param clazz 表头类
-       * @param datalist 表格数据
-       */
-       public static void writeExcel(OutputStream outputStream, ExcelRequest excelRequest, Class<?> clazz, List<?> datalist) {
-
-       }
-
-   ```
-2. excel表格封装导出
-
-```java
-/**
-     * excel表格封装导出
+    /**
+     * 写入excel
      * @param filePath 文件路径
-     * @param dataList 表格数据
-     * @param head 表格复杂头封装
-     * @param sheetName 表格名称
+     * @param excelRequest 自定义配置对象
+     * @param head 自定义表头
+     * @param datalist 表格数据
+     */
+    public static void writeExcel(String filePath, ExcelRequest excelRequest,List<List<String>> head, List<?> datalist) {
+        ...
+    }
+   ```
+
+4. 写入excel
+
+   ```java
+   /**
+     * 写入excel
+     * @param filePath 文件路径
+     * @param excelRequest 自定义配置对象
+     * @param head 表头类
+     * @param datalist 表格数据
+     */
+    public static void writeExcel(String filePath, ExcelRequest excelRequest, Class<?> head, List<?> datalist) {
+        ...
+    }
+   ```
+
+5. excel写入多sheet
+
+   ```java
+    /**
+     * excel导出写入多sheet
+     * @param filePath 文件路径
+     * @param dataMap 表格数据
+     * @param clazz 表格对象类
      * @param <T> 数据类型
      * @throws Exception
      */
-    public static <T> void writeExcelDynamicHead(String filePath, List<T> dataList, List<List<String>> head, String sheetName){
-        ...
-    }
-```
-
-3. excel导出写入到多sheet
-
-   ```java
-   /**
-        * excel导出写入多sheet
-        * @param filePath 文件路径
-        * @param dataMap 表格数据
-        * @param clazz 表格对象类
-        * @param <T> 数据类型
-        * @throws Exception
-        */
-       public static <T> void writeExcelManySheets(String filePath, Map<String, List<T>> dataMap, Class<T> clazz) throws Exception {
-           ...
-       }
-   ```
-4. excel导出写入输出流，出错抛出异常
-
-   ```java
-   /**
-        * 导出写入输出流
-        * @param outputStream 输出流
-        * @param dataList 表格数据
-        * @param sheetName 表格名称
-        * @param clazz 表格对象类
-        * @param <T> 数据类型
-        * @throws Exception
-        */
-       public static <T> void writeExcelDownload(OutputStream outputStream, List<T> dataList, String sheetName, Class<T> clazz) throws Exception{
-          ...
-       }
-   ```
-5. excel导出并下载
-
-   ```java
-
-   /**
-   * 导出并下载
-   * @param response HttpServletResponse
-   * @param fileName 文件名
-   * @param dataList 表格数据
-   * @param sheetName 表格名称
-   * @param <T> 数据类型
-   * @throws Exception
-   */
-   public static <T> void writeExcelDownload(HttpServletResponse response,String fileName, String sheetName,List<List<String>> headList,List<T> dataList){
+    public static <T> void writeExcelManySheets(String filePath, Map<String, List<T>> dataMap, Class<T> clazz) throws Exception {
        ...
-   }
+    }
    ```
-6. 自定义头的导出
 
-   ```Java
-       /**
-        * 自定义头的导出
-        * @param outputStream 输出流
-        * @param dataList 导出数据
-        * @param head 自定义表头
-        * @param sheetName 表名称
-        * @param <T> 数据类型
-        * @throws Exception
-        */
-       public static <T> void writeExcelDynamicHead(OutputStream outputStream, List<T> dataList, List<List<String>> head, String sheetName) throws Exception {
-          ...
-       }
-   ```
-7. 多sheet的写入
+6. excel写入输出流
 
    ```Java
     /**
-     * 多sheet的导出
+     * excel写入输出流
+     * @param outputStream 输出流
+     * @param dataList 表格数据
+     * @param sheetName 表格名称
+     * @param clazz 表格对象类
+     * @param <T> 数据类型
+     * @throws Exception
+     */
+    public static <T> void writeExcelDownload(OutputStream outputStream, List<T> dataList, String sheetName, Class<T> clazz) throws Exception{
+       ...
+    }  
+   ```
+
+7. excel写入输出流异常返回信息
+
+   ```Java
+   /**
+     * excel写入输出流
+     * @param response HttpServletResponse
+     * @param fileName 文件名
+     * @param dataList 表格数据
+     * @param excelRequest 自定义配置
+     * @param <T> 数据类型
+     * @throws Exception
+     */
+    public static <T> void writeExcelWeb(HttpServletResponse response,String fileName, ExcelRequest excelRequest,List<List<String>> headList,List<T> dataList) throws Exception{
+        ...
+    }
+   ```
+
+8. 导出数据写入多个sheet
+
+   ```Java
+    /**
+     * 导出数据写入多个sheet
      * @param outputStream 输出流
      * @param dataMap 导出数据
      * @param clazz 表头类
      * @param <T> 数据类型
      * @throws Exception
      */
-    public static <T> void writeExcelManySheets(OutputStream outputStream, Map<String, List<T>> dataMap, Class<T> clazz) throws Exception {
-      ...
+    public static <T> void writeExcelMultiSheets(OutputStream outputStream, Map<String, List<T>> dataMap, Class<T> clazz) throws Exception {
+       ...
     }
    ```
-8. 多页数据写入单sheet
 
-   ```Java
-    /**
-     * 多页数据写入单sheet
-     *
-     * @param fileName  导出文件名称
-     * @param sheetName 导出sheet名称
-     * @param clazz     excel对象模型
-     * @param excelRequest   查询参数
-     * @param pageInvokeHandler  分页查询方法
-     * @return excel文件
-     */
-    public static <T> void writePagesData2ExcelOneSheet(String fileName, String sheetName, ExcelRequest excelRequest
-            , IPageInvokeHandler pageInvokeHandler, Class<T> clazz, List<List<String>> heads) {
-        ...
-    }
-   ```
-9. 多页数据写入多sheet
+9. 多页数据写入单sheet
 
    ```Java
     /**
@@ -271,16 +269,36 @@ public class ExcelRequest extends BizPageRequest {
      * @param pageInvokeHandler  分页查询方法
      * @return excel文件
      */
-    public static <T> void writePagesData2ExcelMultiSheet(String fileName, String sheetName, BizPageRequest pageRequest
-            ,IPageInvokeHandler pageInvokeHandler, Class<T> clazz, List<List<String>> heads) {
-       ...
+    public static <T> void writePagesData2ExcelOneSheet(String fileName, String sheetName, ExcelRequest excelRequest
+            , IPageInvokeHandler pageInvokeHandler, Class<T> clazz, List<List<String>> heads) {
+      ...
     }
    ```
-10. 多页数据写入多个文件后ZIP压缩
+
+10. 多页数据写入多sheet
 
     ```Java
     /**
-     * 多页数据写入多个文件后ZIP压缩
+     * 多页数据写入多sheet
+     *
+     * @param fileName  导出文件名称
+     * @param sheetName 导出sheet名称
+     * @param clazz     excel对象模型
+     * @param pageRequest   查询参数
+     * @param pageInvokeHandler  分页查询方法
+     * @return excel文件
+     */
+    public static <T> void writePagesData2ExcelMultiSheet(String fileName, String sheetName, BizPageRequest pageRequest
+            ,IPageInvokeHandler pageInvokeHandler, Class<T> clazz, List<List<String>> heads) {
+      ...
+    }
+    ```
+
+11. 分页数据写入多个文件后ZIP压缩
+
+    ```java
+    /**
+     * 分页数据写入多个文件后ZIP压缩
      * @param zipFileName 压缩文件名
      * @param sheetName 表格名称
      * @param pageRequest 分页参数对象
@@ -289,25 +307,10 @@ public class ExcelRequest extends BizPageRequest {
      * @param heads 自定义表头
      */
     public static <T> void writePagesData2MultiFileAndZip(String zipFileName,String sheetName,BizPageRequest pageRequest,IPageInvokeHandler pageInvokeHandler, Class<T> clazz, List<List<String>> heads) {
-       ...
+      ...
     }
     ```
-11. 导出并下载
 
-    ```java
-     /**
-     * 导出并下载
-     * @param response HttpServletResponse
-     * @param fileName 文件名
-     * @param dataList 表格数据
-     * @param excelRequest 自定义配置
-     * @param <T> 数据类型
-     * @throws Exception
-     */
-    public static <T> void writeExcelWeb(HttpServletResponse response,String fileName, ExcelRequest excelRequest,List<List<String>> headList,List<T> dataList) throws Exception{
-       ...
-    }
-    ```
 12. 模板导出
 
     ```Java
@@ -319,40 +322,11 @@ public class ExcelRequest extends BizPageRequest {
     * @param datalist 表数据
     */
     public static void fillExcelWithTemplate(OutputStream outputStream,String templateName, Class<?> head, List<?> datalist) {
-    ...
+        ...
     }
     ```
-13. 写入excel
 
-    ```Java
-    /**
-     * 写入excel
-     * @param outputStream 输入流
-     * @param dataList 导入数据
-     * @param headList 表头列表
-     * @param excelRequest 自定义配置
-     * @param writeHandlers 写入处理器
-     */
-    public static void writeExcelWithHandler(OutputStream outputStream, List<List<String>> headList, List<?> dataList, ExcelRequest excelRequest, WriteHandler... writeHandlers) {
-     ...
-    }
-    ```
-14. 写入excel
-
-    ```Java
-    /**
-     * 写入excel
-     * @param outputStream 输入流
-     * @param dataList 导入数据
-     * @param head 表头Class
-     * @param excelRequest 自定义配置
-     * @param writeHandlers 写入处理器
-     */
-    public static void writeExcelWithHandler(OutputStream outputStream, Class<?> head, List<?> dataList, ExcelRequest excelRequest, WriteHandler... writeHandlers) {
-       ...
-    }
-    ```
-15. 读取excel
+13. 读取excel
 
     ```Java
      /**
@@ -367,19 +341,57 @@ public class ExcelRequest extends BizPageRequest {
         ...
     }
     ```
-16. 读取excel
+
+14. 读取excel
 
     ```java
-
     /**
      * 读取excel
-     * @param inputStream
-     * @param clazz 表头类
+     * @param file
+     * @param head 表头类
      * @param excelRequest 自定义配置对象
-     * @param readListeners 读取监听类
      */
-    public static void readExcel(InputStream inputStream, Class clazz, ExcelRequest excelRequest, ReadListener ...readListeners){
+    public static void readExcel(File file, Class head,ExcelRequest excelRequest) throws FileNotFoundException {
+        ...
+    }
+    ```
+
+15. 读取无模型excel数据
+
+    ```java
+    /**
+     * 读取excel,无表头模型
+     * @param inputStream
+     * @param excelRequest 自定义配置对象
+     */
+    public static void readExcel(InputStream inputStream,ExcelRequest excelRequest){
        ...
+    }
+    ```
+
+16. 读取无模型excel数据
+
+    ```java
+    /**
+     * 读取excel,无标题模型
+     * @param filePath 文件路径
+     * @param excelRequest 自定义配置对象
+     */
+    public static void readExcel(String filePath,ExcelRequest excelRequest) throws FileNotFoundException {
+        ...
+    }
+    ```
+
+17. 读取无模型excel数据
+
+    ```java
+    /**
+     * 读取excel,无表头模型
+     * @param file 文件
+     * @param excelRequest 自定义配置对象
+     */
+    public static void readExcel(File file,ExcelRequest excelRequest) throws FileNotFoundException {
+        ...
     }
     ```
 
