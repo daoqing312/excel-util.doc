@@ -131,35 +131,33 @@ public class ExcelRequest extends BizPageRequest {
 
 1. 写入excel
 
-    ```java
-        /**
-        * 写入excel
-        * @param outputStream 输出流
-        * @param excelRequest 自定义配置对象
-        * @param clazz 表头类
-        * @param datalist 表格数据
-        */
-        public static void writeExcel(OutputStream outputStream, ExcelRequest excelRequest, Class<?> clazz, List<?> datalist) {
-            ...
-        }
+   ```java
+       /**
+       * 写入excel
+       * @param outputStream 输出流
+       * @param excelRequest 自定义配置对象
+       * @param clazz 表头类
+       * @param datalist 表格数据
+       */
+       public static void writeExcel(OutputStream outputStream, ExcelRequest excelRequest, Class<?> clazz, List<?> datalist) {
+           ...
+       }
 
-    ```
-
+   ```
 2. 写入excel
 
-    ```java
-        /**
-        * 写入excel
-        * @param outputStream 输出流
-        * @param excelRequest 自定义配置对象
-        * @param head 自定义表头
-        * @param datalist 表格数据
-        */
-    public static void writeExcel(OutputStream outputStream, ExcelRequest excelRequest,List<List<String>> head, List<?> datalist) {
-        ...
-    } 
-    ```
-
+   ```java
+       /**
+       * 写入excel
+       * @param outputStream 输出流
+       * @param excelRequest 自定义配置对象
+       * @param head 自定义表头
+       * @param datalist 表格数据
+       */
+   public static void writeExcel(OutputStream outputStream, ExcelRequest excelRequest,List<List<String>> head, List<?> datalist) {
+       ...
+   } 
+   ```
 3. 写入excel
 
    ```java
@@ -174,7 +172,6 @@ public class ExcelRequest extends BizPageRequest {
         ...
     }
    ```
-
 4. 写入excel
 
    ```java
@@ -189,7 +186,6 @@ public class ExcelRequest extends BizPageRequest {
         ...
     }
    ```
-
 5. excel写入多sheet
 
    ```java
@@ -205,7 +201,6 @@ public class ExcelRequest extends BizPageRequest {
        ...
     }
    ```
-
 6. excel写入输出流
 
    ```Java
@@ -222,7 +217,6 @@ public class ExcelRequest extends BizPageRequest {
        ...
     }  
    ```
-
 7. excel写入输出流异常返回信息
 
    ```Java
@@ -239,7 +233,6 @@ public class ExcelRequest extends BizPageRequest {
         ...
     }
    ```
-
 8. 导出数据写入多个sheet
 
    ```Java
@@ -255,7 +248,6 @@ public class ExcelRequest extends BizPageRequest {
        ...
     }
    ```
-
 9. 多页数据写入单sheet
 
    ```Java
@@ -274,7 +266,6 @@ public class ExcelRequest extends BizPageRequest {
       ...
     }
    ```
-
 10. 多页数据写入多sheet
 
     ```Java
@@ -293,7 +284,6 @@ public class ExcelRequest extends BizPageRequest {
       ...
     }
     ```
-
 11. 分页数据写入多个文件后ZIP压缩
 
     ```java
@@ -310,7 +300,6 @@ public class ExcelRequest extends BizPageRequest {
       ...
     }
     ```
-
 12. 模板导出
 
     ```Java
@@ -325,7 +314,6 @@ public class ExcelRequest extends BizPageRequest {
         ...
     }
     ```
-
 13. 读取excel
 
     ```Java
@@ -341,7 +329,6 @@ public class ExcelRequest extends BizPageRequest {
         ...
     }
     ```
-
 14. 读取excel
 
     ```java
@@ -355,7 +342,6 @@ public class ExcelRequest extends BizPageRequest {
         ...
     }
     ```
-
 15. 读取无模型excel数据
 
     ```java
@@ -368,7 +354,6 @@ public class ExcelRequest extends BizPageRequest {
        ...
     }
     ```
-
 16. 读取无模型excel数据
 
     ```java
@@ -381,7 +366,6 @@ public class ExcelRequest extends BizPageRequest {
         ...
     }
     ```
-
 17. 读取无模型excel数据
 
     ```java
@@ -409,7 +393,7 @@ public class ExcelRequest extends BizPageRequest {
 
 ###### StyleUtils
 
-说明：样式工具类，后续优化，目前可忽略。
+说明：样式工具类，可自定义常用头和内容样式，方便统一设置。
 
 ###### excel读监听器
 
