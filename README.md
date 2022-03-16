@@ -63,7 +63,7 @@ excel-uitl目录结构描述
 
 |----|----com.zejia.excel
 
-|----|----|----conveter 转换类
+|----|----|----converter 转换类
 
 |----|----|----listener 读监听类
 
@@ -420,6 +420,142 @@ public class ExcelRequest extends BizPageRequest {
 #### Demo工程
 
 excel-demo是基于springboot2创建的导入导出示例代码。用代码示例说明比语言描述更直接，也对开发更友好。如果使用此工具包，建议查看示例和单元测试，以便快速了解不同场景的使用方式。
+
+#### 写入示例
+
+ 1. 示例一
+
+ ```java
+    /**
+     * 写入excel
+     */
+    @Test
+    public void testHead(){
+        //创建文件
+        String filePath= FileUtils.generateFilePath("header测试.xlsx");
+        try {
+            ExcelRequest excelRequest=new ExcelRequest();
+            excelRequest.setSheetName("header测试");
+            ExcelUtils.writeExcel(filePath,excelRequest,PurchaseExecutionData.class,new ArrayList<>());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+ ```
+
+2. 示例二
+
+```java
+ /**
+     * 样式测试
+     * @throws FileNotFoundException
+     */
+    @Test
+    public void testWrite() throws FileNotFoundException {
+        String filePath = FileUtils.generateFilePath("样式测试.xlsx");
+        System.out.println(filePath);
+        // 输出流
+        OutputStream outputStream = new FileOutputStream(new File(filePath));
+        // 导出的数据
+        List<List<Object>> dataList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            List<Object> temp=ListUtil.toList(i+20,"vo" + i,"school" + i);
+            dataList.add(temp);
+        }
+        // 标题
+        List<List<String>> headList = new ArrayList<>();
+        headList.add(ListUtil.of("姓名"));
+        headList.add(ListUtil.of("年龄"));
+        headList.add(ListUtil.of("学校"));
+
+        String sheetName = "导出文件";
+        ExcelRequest excelRequest=new ExcelRequest();
+        excelRequest.setSheetName(sheetName);
+
+        List<Integer> columnIndexes = Arrays.asList(0,1,2);
+        List<Integer> rowIndexes = Arrays.asList(0);
+        HeadColorSheetWriteHandler titleColorSheetWriteHandler = new HeadColorSheetWriteHandler(rowIndexes, columnIndexes, IndexedColors.RED.index);
+
+        List<Integer> columnIndexes1 = Arrays.asList(0,1);
+        List<Integer> rowIndexes1 = Arrays.asList(1,2,3,4);
+        CellColorSheetWriteHandler colorSheetWriteHandler = new CellColorSheetWriteHandler(rowIndexes1, columnIndexes1, IndexedColors.RED.index);
+
+        excelRequest.addWriteHandler(titleColorSheetWriteHandler).addWriteHandler(colorSheetWriteHandler);
+        ExcelUtils.writeExcel(outputStream,excelRequest,headList,dataList);
+
+    }
+
+```
+
+3. 示例三
+```java
+
+    /**
+     * 测试模板写入
+     */
+    @Test
+    public void testDemoDataTemplate(){
+        List<DemoData> list = ListUtils.newArrayList();
+        for (int i = 0; i < 10; i++) {
+            DemoData data = new DemoData();
+            data.setId(IdUtil.fastSimpleUUID());
+            data.setString("字符串" + i);
+            data.setDate(new Date());
+            data.setDoubleData(0.56 * i);
+            list.add(data);
+        }
+        String filePath = FileUtils.getConfigPath()+ "templateFill" + System.currentTimeMillis() + ".xlsx";
+        System.out.println(filePath);
+        String templatePath=WriteTest.class.getClassLoader().getResource("demoDataTemplate.xlsx").getPath();
+        System.out.println(templatePath);
+        try {
+            OutputStream outputStream=new FileOutputStream(filePath);
+            ExcelUtils.fillExcelWithTemplate(outputStream,templatePath,DemoData.class,list);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+```
+4. 示例五
+```java
+/**
+     * 图片写入
+     * @throws Exception
+     */
+    @Test
+    public void imageWrite() throws Exception {
+        String fileName = FileUtils.getConfigPath() + "imageWrite" + System.currentTimeMillis() + ".xlsx";
+        // 如果使用流 记得关闭
+        InputStream inputStream = null;
+        try {
+            List<ImageData> list = new ArrayList<ImageData>();
+            ImageData imageData = new ImageData();
+            list.add(imageData);
+            String imagePath = FileUtils.getConfigPath() + "img.png";
+            System.out.println(imagePath);
+            if(!FileUtil.exist(imagePath)){
+                throw new BizException(404,"图片文件不存在");
+            }
+            // 放入四种类型的图片 实际使用只要选一种即可
+            imageData.setByteArray(FileUtil.readBytes(imagePath));
+            imageData.setFile(new File(imagePath));
+            imageData.setString(imagePath);
+            inputStream = new FileInputStream(imagePath);
+            imageData.setInputStream(inputStream);
+            EasyExcel.write(fileName, ImageData.class).sheet().doWrite(list);
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+    }
+
+```
+
 
 #### 关于EasyExcel
 
